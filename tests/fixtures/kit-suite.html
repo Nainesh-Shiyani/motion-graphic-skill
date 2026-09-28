@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Motion Kit test suite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --mk-c1: #7c3aed; --mk-c2: #06b6d4; --mk-c3: #f472b6; }
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #0b0b10; color: #eee; overflow-x: clip; }
+  section { min-height: 60vh; padding: 40px; }
+  .spacer { height: 120vh; }
+  .card { width: 200px; height: 120px; background: #1c1c28; border-radius: 12px; margin: 8px; display: inline-block; }
+  .panel { width: 70vw; height: 50vh; background: #222; border-radius: 16px; }
+  #results { white-space: pre-wrap; font: 12px monospace; }
+  @media (prefers-reduced-motion: reduce) { .x { animation: none; } }
+</style>
+</head>
+<body data-cursor>
+<div data-scroll-progress id="progress"></div>
+
+<section id="hero" data-bg="aurora noise">
+  <h1 id="t-reveal" data-text="reveal">Build <em>beautiful</em> websites fast</h1>
+  <p id="t-chars" data-text="chars">Hello there</p>
+  <p id="in-view-reveal" data-motion="fade-up">Visible at load</p>
+  <a href="#x" id="link1" data-magnetic="0.4" style="display:inline-block;padding:10px 20px;background:#333">Magnetic</a>
+  <span id="t-type" data-text="typewriter" data-words="Designers|Developers" data-text-speed="20" data-text-pause="200">Designers</span>
+  <span id="t-rot" data-text="rotate" data-words="alpha|beta|gamma" data-text-interval="600">alpha</span>
+  <h2 id="t-nested" data-text="reveal">Made for <span id="t-nested-rot" data-text="rotate" data-words="you|me|us" data-text-interval="500">you</span> today</h2>
+  <span id="t-scr" data-text="scramble" data-text-trigger="hover">ACCESS GRANTED</span>
+</section>
+
+<div class="spacer"></div>
+
+<section id="s-reveal">
+  <div id="r1" data-motion="zoom-in" data-motion-duration="300">Zoom</div>
+  <div id="r-unknown" data-motion="does-not-exist" data-motion-duration="300">Unknown preset</div>
+  <div id="r-repeat" data-motion="fade" data-motion-repeat data-motion-duration="200">Repeat</div>
+  <div id="grid" data-motion-children="pop">
+    <div class="card"></div><div class="card"></div><div class="card"></div><div class="card"></div>
+  </div>
+  <p id="t-hl" data-text="highlight">highlight me</p>
+  <p><span id="count1" data-count-to="12500" data-count-prefix="$" data-count-suffix="+" data-count-duration="400">$12,500+</span>
+     <span id="count2" data-count-to="4.9" data-count-duration="300">4.9</span></p>
+  <svg id="svg1" data-draw data-draw-duration="300" width="200" height="60"><path d="M0 30 Q 50 0 100 30 T 200 30" stroke="#fff" fill="none" stroke-width="2"/></svg>
+  <div id="tilt1" class="card" data-tilt="12" data-tilt-glare></div>
+  <div id="spot" data-spotlight="group"><div class="card"></div><div class="card"></div></div>
+  <button id="rip" data-ripple>Ripple</button>
+  <button id="conf" data-confetti>Confetti</button>
+</section>
+
+<section id="s-marquee">
+  <div id="mq" data-marquee data-marquee-speed="80" data-marquee-pause class="mk-marquee-fade">
+    <span>ONE</span><span>TWO</span><span>THREE</span>
+  </div>
+  <p id="t-scroll" data-text="scroll">These words light up one by one as the reader scrolls down through the section</p>
+  <div id="par" data-parallax="0.3" style="height:50px;background:#444">parallax</div>
+  <div id="scrub" data-scrub="scale-in" style="height:80px;background:#555">scrub</div>
+</section>
+
+<section id="hz" data-horizontal>
+  <div class="panel">1</div><div class="panel">2</div><div class="panel">3</div>
+</section>
+
+<section id="steps" data-steps style="display:grid;grid-template-columns:1fr 1fr">
+  <div class="mk-sticky mk-steps-stack">
+    <div data-step-target="0">A</div><div data-step-target="1">B</div><div data-step-target="2">C</div>
+  </div>
+  <div>
+    <div data-step style="height:70vh">Step A</div>
+    <div data-step style="height:70vh" id="step2">Step B</div>
+    <div data-step style="height:70vh">Step C</div>
+  </div>
+</section>
+
+<section id="bgs">
+  <div id="bg-particles" data-bg="particles" style="height:200px"></div>
+  <div id="bg-stars" data-bg="stars" style="height:200px"></div>
+  <div id="bg-waves" data-bg="waves" style="height:200px"></div>
+  <div id="bg-matrix" data-bg="matrix" style="height:200px"></div>
+  <div id="bg-grid" data-bg="grid" style="height:200px"></div>
+  <div id="bg-dots" data-bg="dots" style="height:200px"></div>
+  <div id="bg-bokeh" data-bg="bokeh" style="height:200px"></div>
+  <div id="bg-snow" data-bg="snow" style="height:200px"></div>
+  <div id="bg-gradient" data-bg="gradient" style="height:200px"></div>
+  <div id="bg-liquid" data-bg="liquid" style="height:200px"></div>
+</section>
+
+<div class="spacer"></div>
+<pre id="results">running...</pre>
+
+<script>
+window.addEventListener('load', function () { setTimeout(runSuite, 100); });
+
+async function runSuite() {
+  var MK = window.MotionKit;
+  var reduced = MK && MK.reduced;
+  var results = [];
+  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  var $ = function (s) { return document.querySelector(s); };
+  function assert(c, m) { if (!c) throw new Error(m || 'assertion failed'); }
+  async function waitFor(fn, ms, msg) {
+    var t = performance.now();
+    while (performance.now() - t < (ms || 2000)) { try { if (fn()) return; } catch (e) {} await sleep(30); }
+    throw new Error('timeout: ' + (msg || fn.toString().slice(0, 120)));
+  }
+  async function scrollTo(el, block) {
+    el.scrollIntoView({ block: block || 'center', behavior: 'instant' });
+    await sleep(120);
+  }
+  function op(el) { return parseFloat(getComputedStyle(el).opacity); }
+  async function t(name, fn, onlyMode) {
+    if (onlyMode === 'normal' && reduced) return;
+    if (onlyMode === 'reduced' && !reduced) return;
+    try { await fn(); results.push({ name: name, ok: true }); }
+    catch (e) { results.push({ name: name, ok: false, err: e.message }); }
+  }
+  function pointer(el, type, fx, fy) {
+    var r = el.getBoundingClientRect();
+    el.dispatchEvent(new PointerEvent(type, { bubbles: true, clientX: r.left + r.width * fx, clientY: r.top + r.height * fy, pointerType: 'mouse' }));
+  }
+
+  await t('core loaded', function () {
+    assert(MK && MK.__core, 'MotionKit missing');
+    assert(document.documentElement.classList.contains('mk-js'), 'mk-js class missing');
+    assert(Object.keys(MK.stats()).length > 10, 'few modules initialised: ' + JSON.stringify(MK.stats()));
+  });
+
+  // ---------- reveal ----------
+  await t('reveal: in-view element animates in', async function () {
+    await waitFor(function () { return $('#in-view-reveal').classList.contains('mk-in'); }, 2000);
+  });
+  await t('reveal: below-fold element hidden until scrolled', async function () {
+    assert(!$('#r1').classList.contains('mk-in'), 'revealed too early');
+    assert(op($('#r1')) < 0.05, 'not hidden, opacity=' + op($('#r1')));
+    await scrollTo($('#r1'));
+    await waitFor(function () { return $('#r1').classList.contains('mk-in'); }, 1500, 'mk-in');
+    await waitFor(function () { return $('#r1').classList.contains('mk-done'); }, 2000, 'mk-done');
+    assert(op($('#r1')) > 0.99, 'opacity after reveal ' + op($('#r1')));
+  }, 'normal');
+  await t('reveal: unknown preset still becomes visible', async function () {
+    await scrollTo($('#r-unknown'));
+    await waitFor(function () { return $('#r-unknown').classList.contains('mk-done') && op($('#r-unknown')) > 0.99; }, 2500);
+  });
+  await t('reveal: children get preset + stagger', async function () {
+    var kids = $('#grid').children;
+    assert(kids[0].getAttribute('data-motion') === 'pop', 'child preset not applied');
+    await scrollTo($('#grid'));
+    await waitFor(function () { return kids[3].classList.contains('mk-in'); }, 1500);
+    var d0 = parseFloat(kids[0].style.getPropertyValue('--mk-delay'));
+    var d3 = parseFloat(kids[3].style.getPropertyValue('--mk-delay'));
+    assert(d3 > d0, 'no stagger: ' + d0 + ' / ' + d3);
+  }, 'normal');
+  await t('reveal: repeat resets when leaving view', async function () {
+    await scrollTo($('#r-repeat'));
+    await waitFor(function () { return $('#r-repeat').classList.contains('mk-in'); }, 1500);
+    window.scrollTo(0, 0);
+    await waitFor(function () { return !$('#r-repeat').classList.contains('mk-in'); }, 1500);
+  }, 'normal');
+  await t('reveal: dynamically added elements are initialised', async function () {
+    var el = document.createElement('div');
+    el.setAttribute('data-motion', 'fade-up');
+    el.setAttribute('data-motion-duration', '200');
+    el.textContent = 'dynamic';
+    $('#hero').appendChild(el);
+    await waitFor(function () { return el.classList.contains('mk-in'); }, 2000, 'dynamic reveal');
+  });
+
+  // ---------- text ----------
+  await t('text: reveal splits words and keeps markup + sr copy', function () {
+    var h = $('#t-reveal');
+    assert(h.querySelectorAll('.mk-wi').length === 4, 'words=' + h.querySelectorAll('.mk-wi').length);
+    assert(h.querySelector('em .mk-wi'), '<em> not preserved');
+    assert(h.querySelector('.mk-sr').textContent === 'Build beautiful websites fast', 'sr copy: ' + h.querySelector('.mk-sr').textContent);
+  });
+  await t('text: nested rotate inside reveal stays one unit and still rotates', async function () {
+    var rot = $('#t-nested-rot');
+    assert(rot.closest('.mk-wi'), 'rotate span should be wrapped as one unit');
+    assert(!rot.querySelector('.mk-w'), 'rotate span was split by the outer reveal');
+    assert(rot.querySelector('.mk-rot'), 'rotate did not initialise');
+    assert($('#t-nested').querySelectorAll('.mk-wi').length === 4, 'units=' + $('#t-nested').querySelectorAll('.mk-wi').length);
+    if (!reduced) await waitFor(function () { var w = rot.querySelector('.mk-rot-word:not(.mk-rot-next)'); return w && w.textContent !== 'you'; }, 4000);
+  });
+  await t('text: chars split', function () {
+    assert($('#t-chars').querySelectorAll('.mk-c').length === 10, 'chars=' + $('#t-chars').querySelectorAll('.mk-c').length);
+  });
+  await t('text: hero reveal plays', async function () {
+    window.scrollTo(0, 0);
+    await waitFor(function () { return $('#t-reveal').classList.contains('mk-in'); }, 1500);
+  });
+  await t('text: typewriter types and cycles', async function () {
+    var out = $('#t-type .mk-tw');
+    assert(out, 'no output span');
+    await waitFor(function () { return out.textContent.length > 2; }, 3000, 'typing');
+    await waitFor(function () { return /^Dev/.test(out.textContent); }, 6000, 'second word');
+  }, 'normal');
+  await t('text: rotate cycles words', async function () {
+    await waitFor(function () { var w = $('#t-rot .mk-rot-word:not(.mk-rot-next)'); return w && w.textContent !== 'alpha'; }, 4000);
+  }, 'normal');
+  await t('text: scramble resolves to the original text', async function () {
+    var el = $('#t-scr');
+    el.dispatchEvent(new PointerEvent('pointerenter'));
+    await sleep(60);
+    await waitFor(function () { return el.querySelector('.mk-scr').textContent === 'ACCESS GRANTED'; }, 4000);
+    assert(el.querySelector('.mk-sr').textContent === 'ACCESS GRANTED', 'sr copy');
+  });
+  await t('text: highlight gets mk-in', async function () {
+    await scrollTo($('#t-hl'));
+    await waitFor(function () { return $('#t-hl').classList.contains('mk-in'); }, 1500);
+  });
+  await t('text: scroll fill varies word opacity', async function () {
+    var el = $('#t-scroll');
+    await scrollTo(el);
+    await sleep(200);
+    var ops = Array.prototype.map.call(el.querySelectorAll('.mk-wi'), function (w) { return parseFloat(w.style.opacity || getComputedStyle(w).opacity); });
+    var min = Math.min.apply(null, ops), max = Math.max.apply(null, ops);
+    assert(max - min > 0.3, 'no gradient of opacity: ' + min + '..' + max);
+  }, 'normal');
+
+  // ---------- counter ----------
+  await t('counter: counts to formatted final value', async function () {
+    await scrollTo($('#count1'));
+    await waitFor(function () { return $('#count1').textContent === '$12,500+' && $('#count2').textContent === '4.9'; }, 3000,
+      'final text (got ' + $('#count1').textContent + ' / ' + $('#count2').textContent + ')');
+  });
+
+  // ---------- draw ----------
+  await t('draw: svg path draws in', async function () {
+    var p = $('#svg1 path');
+    await scrollTo($('#svg1'));
+    await waitFor(function () { return p.style.strokeDashoffset === '0' || p.style.strokeDashoffset === '0px'; }, 2000);
+    assert(parseFloat(p.style.strokeDasharray) > 100, 'dasharray ' + p.style.strokeDasharray);
+  });
+
+  // ---------- interactions ----------
+  await t('magnetic: follows pointer and returns', async function () {
+    var a = $('#link1');
+    window.scrollTo(0, 0); await sleep(100);
+    pointer(a, 'pointermove', 1, 1);
+    await waitFor(function () { return a.style.translate && a.style.translate !== '0px 0px'; }, 1000, 'translate set');
+    pointer(a, 'pointerleave', 2, 2);
+    await waitFor(function () { return !a.style.translate; }, 2000, 'translate reset');
+  }, 'normal');
+  await t('tilt: rotates toward pointer, glare present', async function () {
+    var c = $('#tilt1');
+    await scrollTo(c);
+    assert(c.querySelector('.mk-glare'), 'glare missing');
+    pointer(c, 'pointermove', 0.9, 0.1);
+    await waitFor(function () { return /rotateX\((?!0\.00)/.test(c.style.transform); }, 1000, 'transform ' + c.style.transform);
+    pointer(c, 'pointerleave', 2, 2);
+    await waitFor(function () { return !c.style.transform; }, 3000, 'reset');
+  }, 'normal');
+  await t('spotlight: group cards get glow layers + vars', function () {
+    var g = $('#spot');
+    assert(g.children[0].querySelector('.mk-spot') && g.children[1].querySelector('.mk-spot-border'), 'layers');
+    pointer(g.children[0], 'pointermove', 0.5, 0.5);
+    assert(g.children[1].style.getPropertyValue('--mk-mx'), 'vars not set on sibling');
+  }, 'normal');
+  await t('ripple: pointerdown adds a ripple that cleans up', async function () {
+    var b = $('#rip');
+    pointer(b, 'pointerdown', 0.5, 0.5);
+    assert(b.querySelector('.mk-ripple'), 'no ripple');
+    await waitFor(function () { return !b.querySelector('.mk-ripple'); }, 2000);
+  }, 'normal');
+  await t('cursor: follower created and reacts to links', async function () {
+    var c = document.querySelector('.mk-cursor');
+    assert(c, 'no cursor');
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: 300, clientY: 300 }));
+    $('#link1').dispatchEvent(new PointerEvent('pointerover', { bubbles: true }));
+    await sleep(50);
+    assert(c.classList.contains('mk-hover'), 'no hover state');
+    assert(c.classList.contains('mk-visible'), 'not visible');
+  }, 'normal');
+  await t('confetti: burst creates canvas', function () {
+    $('#conf').click();
+    assert(document.querySelector('.mk-confetti'), 'no confetti canvas');
+  }, 'normal');
+
+  // ---------- marquee ----------
+  await t('marquee: track cloned and animating', async function () {
+    var m = $('#mq');
+    await scrollTo(m);
+    var track = m.querySelector('.mk-marquee-track');
+    assert(track, 'no track');
+    assert(track.querySelectorAll('[aria-hidden="true"]').length >= 1, 'no aria-hidden clones');
+    await waitFor(function () { return track.getAnimations().length === 1 && track.getAnimations()[0].playState === 'running'; }, 1500);
+  }, 'normal');
+
+  // ---------- scroll ----------
+  await t('parallax: translate follows scroll', async function () {
+    var p = $('#par');
+    p.scrollIntoView({ block: 'start', behavior: 'instant' });
+    await sleep(150);
+    var a = p.style.translate;
+    p.scrollIntoView({ block: 'end', behavior: 'instant' });
+    await sleep(150);
+    assert(a && p.style.translate && a !== p.style.translate, 'translate did not change: ' + a + ' -> ' + p.style.translate);
+  }, 'normal');
+  await t('scrub: exposes --mk-p / --mk-enter', async function () {
+    await scrollTo($('#scrub'));
+    var v = parseFloat($('#scrub').style.getPropertyValue('--mk-enter'));
+    assert(v > 0 && v <= 1, '--mk-enter=' + v);
+  }, 'normal');
+  await t('scroll-progress: bar scales with page', async function () {
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    await sleep(150);
+    var s = $('#progress').style.scale;
+    assert(parseFloat(s) > 0.95, 'scale ' + s);
+    assert(getComputedStyle($('#progress')).position === 'fixed', 'not fixed');
+  });
+  await t('horizontal: section pins and track moves sideways', async function () {
+    var s = $('#hz');
+    assert(s.offsetHeight > window.innerHeight * 1.2, 'section height ' + s.offsetHeight);
+    window.scrollTo(0, s.offsetTop + (s.offsetHeight - window.innerHeight) / 2);
+    await sleep(150);
+    var tr = s.querySelector('.mk-h-track').style.transform;
+    assert(/translate3d\(-\d/.test(tr), 'transform ' + tr);
+    var sticky = s.querySelector('.mk-h-sticky').getBoundingClientRect();
+    assert(Math.abs(sticky.top) < 2, 'not pinned, top=' + sticky.top);
+  }, 'normal');
+  await t('steps: active step follows scroll', async function () {
+    await scrollTo($('#step2'));
+    await waitFor(function () { return $('#steps').getAttribute('data-active-step') === '1'; }, 1500);
+    assert($('[data-step-target="1"]').classList.contains('mk-active'), 'target not active');
+  });
+
+  // ---------- backgrounds ----------
+  await t('bg: css layers (aurora + noise) stacked in order', function () {
+    var layers = $('#hero').querySelectorAll(':scope > .mk-bg');
+    assert(layers.length === 2, 'layers=' + layers.length);
+    assert(layers[0].classList.contains('mk-bg--aurora') && layers[1].classList.contains('mk-bg--noise'), 'order');
+    assert(layers[0].querySelectorAll('.mk-aurora-blob').length === 4, 'blobs');
+  });
+  var canvasBgs = ['particles', 'stars', 'waves', 'matrix', 'grid', 'dots', 'bokeh', 'snow'];
+  for (const name of canvasBgs) {
+    await t('bg: ' + name + ' draws pixels', async function () {
+      var host = $('#bg-' + name);
+      await scrollTo(host);
+      await sleep(name === 'matrix' ? 700 : 350);
+      var cv = host.querySelector('.mk-bg canvas');
+      assert(cv && cv.width > 10 && cv.height > 10, 'canvas size');
+      var ctx = cv.getContext('2d');
+      var data = ctx.getImageData(0, 0, cv.width, cv.height).data, lit = 0;
+      for (var k = 3; k < data.length; k += 4) if (data[k] > 10) lit++;
+      assert(lit > 20, 'canvas looks empty (' + lit + ')');
+    });
+  }
+  await t('bg: gradient layer', function () { assert($('#bg-gradient .mk-gradient-a'), 'no gradient child'); });
+  await t('bg: liquid has webgl canvas or aurora fallback', async function () {
+    var host = $('#bg-liquid');
+    await scrollTo(host);
+    await sleep(200);
+    var layer = host.querySelector('.mk-bg');
+    assert(layer.querySelector('canvas') || layer.querySelector('.mk-aurora-blob'), 'no liquid output');
+  });
+
+  // ---------- reduced motion ----------
+  await t('reduced: everything visible immediately, counters final, no loops', async function () {
+    var hidden = Array.prototype.filter.call(document.querySelectorAll('[data-motion]'), function (el) { return op(el) < 0.99; });
+    assert(!hidden.length, hidden.length + ' reveal elements hidden');
+    assert($('#count1').textContent === '$12,500+', 'counter ' + $('#count1').textContent);
+    assert(!document.querySelector('.mk-cursor'), 'cursor should be off');
+    var track = $('#mq .mk-marquee-track');
+    assert(!track.getAnimations().length, 'marquee animating');
+    var loops = document.getAnimations().filter(function (a) { return a.effect && a.effect.getTiming().iterations === Infinity; });
+    assert(!loops.length, loops.length + ' infinite animations running');
+  }, 'reduced');
+
+  // ---------- cleanup ----------
+  await t('destroy: removed elements are cleaned up', async function () {
+    var before = MK.stats().reveal || 0;
+    $('#r1').remove();
+    await sleep(150);
+    var after = MK.stats().reveal || 0;
+    assert(after === before - 1, 'reveal count ' + before + ' -> ' + after);
+  });
+
+  var failed = results.filter(function (r) { return !r.ok; });
+  window.__results = { mode: reduced ? 'reduced' : 'normal', total: results.length, failed: failed.length, results: results };
+  $('#results').textContent = results.map(function (r) { return (r.ok ? 'PASS ' : 'FAIL ') + r.name + (r.err ? '  -> ' + r.err : ''); }).join('\n');
+  document.title = failed.length ? 'FAIL ' + failed.length : 'PASS ' + results.length;
+}
+</script>
+</body>
+</html>

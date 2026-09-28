@@ -1,0 +1,21 @@
+/* ---------- effects: animated text fills (CSS only) ----------
+ * mk-gradient-text (flowing --mk-c1..3 gradient)  mk-shine (light sweep; --mk-shine-base / --mk-shine-hi)
+ * Class selectors are doubled (.x.x) so they win over same-specificity component styles like .card { background }
+ */
+.mk-gradient-text.mk-gradient-text {
+  background: linear-gradient(90deg, var(--mk-c1), var(--mk-c2), var(--mk-c3), var(--mk-c1));
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: mk-gradient-pan 8s linear infinite;
+}
+@keyframes mk-gradient-pan { to { background-position: 300% 0; } }
+.mk-shine.mk-shine {
+  background: linear-gradient(110deg, var(--mk-shine-base, currentColor) 38%, var(--mk-shine-hi, #fff) 50%, var(--mk-shine-base, currentColor) 62%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mk-shine 3.2s linear infinite;
+}
+@keyframes mk-shine { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .mk-gradient-text.mk-gradient-text, .mk-shine.mk-shine { animation: none !important; } }

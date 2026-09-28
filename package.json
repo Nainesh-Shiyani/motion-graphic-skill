@@ -1,0 +1,24 @@
+{
+  "name": "motion-graphic-skill-for-website-creation-using-claude",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Agent Skill that adds eye-catching motion graphics to every website an AI builds (Motion Kit + Node/Python CLIs). Works with Claude, ChatGPT/Codex, Gemini, Copilot, Cursor.",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs && node tools/package.mjs",
+    "test": "node tools/build.mjs && node tools/package.mjs && node tests/run-cli-tests.mjs && node tests/run-python-parity.mjs && node tests/run-kit-tests.mjs",
+    "test:quick": "node tests/run-cli-tests.mjs && node tests/run-kit-tests.mjs --quick",
+    "land": "node tools/gen-land.mjs",
+    "serve": "node tools/serve.mjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.25.10",
+    "pyodide": "^0.28.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nainesh-Shiyani/motion-graphic-skill-for-website-creation-using-claude.git"
+  },
+  "author": "Nainesh Shiyani"
+}

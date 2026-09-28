@@ -1,0 +1,15 @@
+/* ---------- marquee ---------- */
+.mk-marquee { overflow: hidden; --mk-gap: 3rem; }
+.mk-marquee-track { display: flex; width: max-content; will-change: transform; }
+.mk-marquee-group { display: flex; align-items: center; flex-shrink: 0; gap: var(--mk-gap); padding-right: var(--mk-gap); }
+.mk-marquee-v .mk-marquee-track { flex-direction: column; width: auto; height: max-content; }
+.mk-marquee-v .mk-marquee-group { flex-direction: column; padding-right: 0; padding-bottom: var(--mk-gap); }
+.mk-marquee-static { overflow-x: auto; }
+.mk-marquee-fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.mk-marquee-v.mk-marquee-fade {
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+}

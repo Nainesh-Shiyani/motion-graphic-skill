@@ -1,0 +1,1 @@
+[data-tilt]{transform-style:preserve-3d}.mk-glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .35s ease;background:radial-gradient(circle at var(--mk-gx, 50%) var(--mk-gy, 50%),rgba(255,255,255,.28),transparent 55%);mix-blend-mode:soft-light}

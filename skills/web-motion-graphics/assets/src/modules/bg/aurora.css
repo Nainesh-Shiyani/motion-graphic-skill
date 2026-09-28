@@ -1,0 +1,16 @@
+/* bg: aurora */
+.mk-bg--aurora { opacity: var(--mk-aurora-opacity, .6); }
+.mk-aurora-blob {
+  position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, var(--c) 0%, transparent 66%);
+  will-change: transform;
+  animation: mk-aurora-a calc(22s / var(--mk-aurora-speed, 1)) ease-in-out infinite alternate;
+}
+.mk-aurora-blob:nth-child(1) { left: -12%; top: -22%; }
+.mk-aurora-blob:nth-child(2) { right: -14%; top: -8%; animation-name: mk-aurora-b; animation-duration: calc(26s / var(--mk-aurora-speed, 1)); }
+.mk-aurora-blob:nth-child(3) { left: 18%; bottom: -34%; animation-name: mk-aurora-c; animation-duration: calc(30s / var(--mk-aurora-speed, 1)); }
+.mk-aurora-blob:nth-child(4) { right: 8%; bottom: -12%; width: 40%; animation-name: mk-aurora-b; animation-duration: calc(19s / var(--mk-aurora-speed, 1)); animation-direction: alternate-reverse; }
+@keyframes mk-aurora-a { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(18%, 12%) scale(1.18); } 100% { transform: translate(-6%, 22%) scale(.92); } }
+@keyframes mk-aurora-b { 0% { transform: translate(0, 0) scale(1.1); } 50% { transform: translate(-20%, 14%) scale(.9); } 100% { transform: translate(-8%, -10%) scale(1.2); } }
+@keyframes mk-aurora-c { 0% { transform: translate(0, 0) scale(.95); } 50% { transform: translate(14%, -18%) scale(1.2); } 100% { transform: translate(-16%, -6%) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .mk-aurora-blob { animation: none; } }

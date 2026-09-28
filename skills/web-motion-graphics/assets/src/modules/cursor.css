@@ -1,0 +1,45 @@
+/* ---------- cursor ---------- */
+.mk-cursor {
+  --mk-cursor-c: var(--mk-cursor, var(--mk-accent));
+  position: fixed; inset: 0; pointer-events: none; z-index: 2147483000;
+  opacity: 0; transition: opacity .3s;
+}
+.mk-cursor.mk-visible { opacity: 1; }
+.mk-cursor-ring, .mk-cursor-dot { position: fixed; top: 0; left: 0; will-change: transform; }
+.mk-cursor-ring::before {
+  content: ""; position: absolute; left: -18px; top: -18px; width: 36px; height: 36px;
+  border: 1.5px solid var(--mk-cursor-c); border-radius: 50%;
+  transition: scale .35s var(--mk-ease), background-color .35s, border-color .35s;
+}
+.mk-cursor-dot::before {
+  content: ""; position: absolute; left: -3px; top: -3px; width: 6px; height: 6px;
+  background: var(--mk-cursor-c); border-radius: 50%; transition: scale .25s;
+}
+.mk-cursor-label {
+  position: absolute; left: 0; top: 0; translate: -50% -50%;
+  font: 600 12px/1 system-ui, sans-serif; letter-spacing: .04em; text-transform: uppercase;
+  color: #fff; white-space: nowrap; opacity: 0; transition: opacity .25s;
+}
+.mk-cursor--ring .mk-cursor-dot { display: none; }
+.mk-cursor.mk-hover .mk-cursor-ring::before { scale: 1.6; background: rgba(255, 255, 255, .08); }
+.mk-cursor.mk-has-label .mk-cursor-ring::before { scale: 2.4; background: var(--mk-cursor-c); border-color: transparent; }
+.mk-cursor.mk-has-label .mk-cursor-label { opacity: 1; }
+.mk-cursor.mk-hover .mk-cursor-dot::before { scale: 0; }
+.mk-cursor.mk-press .mk-cursor-ring::before { scale: .8; }
+
+.mk-cursor--blend { mix-blend-mode: difference; }
+.mk-cursor--blend .mk-cursor-ring::before { width: 44px; height: 44px; left: -22px; top: -22px; background: #fff; border: 0; }
+.mk-cursor--blend .mk-cursor-dot { display: none; }
+.mk-cursor--blend.mk-hover .mk-cursor-ring::before { scale: 2.2; background: #fff; }
+.mk-cursor--blend .mk-cursor-label { color: #000; }
+
+html.mk-cursor-none, html.mk-cursor-none * { cursor: none !important; }
+html.mk-cursor-none input, html.mk-cursor-none textarea, html.mk-cursor-none [contenteditable] { cursor: text !important; }
+
+.mk-cursor--blob .mk-cursor-ring, .mk-cursor--blob .mk-cursor-dot { display: none; }
+.mk-cursor-goo { position: fixed; inset: 0; }
+.mk-cursor-blob {
+  position: fixed; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%;
+  background: var(--mk-cursor-c); scale: var(--s, 1); will-change: transform;
+}
+.mk-cursor--blob.mk-hover .mk-cursor-blob { width: 56px; height: 56px; margin: -28px 0 0 -28px; transition: width .3s, height .3s, margin .3s; }

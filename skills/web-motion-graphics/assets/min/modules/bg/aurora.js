@@ -1,0 +1,1 @@
+(function(t){"use strict";t.defineBg("aurora",{create:function(e){for(var o=0;o<4;o++){var r=document.createElement("mk-span");r.className="mk-aurora-blob",r.style.setProperty("--c",e.colors[o%e.colors.length]),e.layer.appendChild(r)}}})})(window.MotionKit);

@@ -1,0 +1,10 @@
+/* ---------- counter: odometer style ---------- */
+.mk-odo { display: inline-flex; align-items: flex-end; white-space: nowrap; }
+.mk-odo-d, .mk-odo-c { display: inline-block; height: 1.1em; line-height: 1.1; }
+.mk-odo-d { overflow: hidden; }
+.mk-odo-s { display: flex; flex-direction: column; }
+.mk-odo-s > * { height: 1.1em; line-height: 1.1; text-align: center; }
+.mk-odo.mk-in .mk-odo-s {
+  translate: 0 calc(var(--mk-odo-to) * -1.1em);
+  transition: translate var(--mk-odo-dur, 2s) cubic-bezier(.16, .84, .24, 1);
+}

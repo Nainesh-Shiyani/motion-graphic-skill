@@ -1,0 +1,43 @@
+/* ---------- effects: ambient loops (CSS only) ----------
+ * mk-float mk-float-slow mk-spin-slow mk-pulse mk-glow mk-blob mk-ping mk-bounce mk-scroll-hint
+ */
+.mk-float { animation: mk-float 6s ease-in-out infinite; animation-delay: var(--mk-float-delay, 0s); }
+.mk-float-slow { animation: mk-float 10s ease-in-out infinite; animation-delay: var(--mk-float-delay, 0s); }
+@keyframes mk-float { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: 0 -14px; rotate: 1.5deg; } }
+.mk-spin-slow { animation: mk-spin-u 24s linear infinite; }
+@keyframes mk-spin-u { to { rotate: 360deg; } }
+.mk-pulse { animation: mk-pulse 2.4s ease-in-out infinite; }
+@keyframes mk-pulse { 0%, 100% { scale: 1; opacity: 1; } 50% { scale: 1.06; opacity: .85; } }
+.mk-glow { animation: mk-glow 3s ease-in-out infinite; }
+@keyframes mk-glow {
+  0%, 100% { box-shadow: 0 0 24px -6px var(--mk-accent); }
+  50% { box-shadow: 0 0 0 6px rgba(139, 92, 246, .12), 0 0 48px -4px var(--mk-accent); }
+}
+.mk-blob { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; animation: mk-blob 12s ease-in-out infinite; }
+@keyframes mk-blob {
+  0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+  33% { border-radius: 63% 37% 45% 55% / 55% 62% 38% 45%; }
+  66% { border-radius: 36% 64% 38% 62% / 62% 39% 61% 38%; }
+}
+.mk-ping { position: relative; }
+.mk-ping::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; background: inherit;
+  animation: mk-ping 1.8s cubic-bezier(0, 0, .2, 1) infinite; z-index: -1;
+}
+@keyframes mk-ping { 75%, 100% { scale: 2.2; opacity: 0; } }
+.mk-bounce { animation: mk-bounce 2s ease-in-out infinite; }
+@keyframes mk-bounce { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+.mk-scroll-hint {
+  display: inline-block; width: 26px; height: 42px; border: 2px solid currentColor; border-radius: 14px;
+  position: relative; opacity: .8;
+}
+.mk-scroll-hint::before {
+  content: ""; position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px;
+  border-radius: 2px; background: currentColor; animation: mk-scroll-hint 1.8s ease-in-out infinite;
+}
+@keyframes mk-scroll-hint { 0% { opacity: 0; translate: 0 0; } 30% { opacity: 1; } 80% { opacity: 0; translate: 0 14px; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .mk-float, .mk-float-slow, .mk-spin-slow, .mk-pulse, .mk-glow, .mk-blob, .mk-ping::after, .mk-bounce, .mk-scroll-hint::before {
+    animation: none !important;
+  }
+}

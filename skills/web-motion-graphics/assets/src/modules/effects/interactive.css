@@ -1,0 +1,15 @@
+/* ---------- effects: CSS-only interactive layouts ----------
+ * mk-flip-card   first child = front, last child = back; flips in 3D on hover / keyboard focus (add tabindex="0")
+ * mk-accordion   row of panels; the hovered / focused one expands (image galleries, team, services)
+ */
+.mk-flip-card { display: grid; perspective: 1200px; }
+.mk-flip-card > * { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform .8s var(--mk-ease); }
+.mk-flip-card > :last-child { transform: rotateY(180deg); }
+.mk-flip-card:hover > :first-child, .mk-flip-card:focus-within > :first-child { transform: rotateY(-180deg); }
+.mk-flip-card:hover > :last-child, .mk-flip-card:focus-within > :last-child { transform: rotateY(0deg); }
+
+.mk-accordion { display: flex; gap: .75rem; }
+.mk-accordion > * { flex: 1 1 0; min-width: 0; overflow: hidden; transition: flex-grow .7s var(--mk-ease); }
+.mk-accordion > :hover, .mk-accordion > :focus-within { flex-grow: 4; }
+@media (max-width: 700px) { .mk-accordion { flex-direction: column; } .mk-accordion > :hover, .mk-accordion > :focus-within { flex-grow: 1; } }
+@media (prefers-reduced-motion: reduce) { .mk-flip-card > *, .mk-accordion > * { transition-duration: .01ms; } }

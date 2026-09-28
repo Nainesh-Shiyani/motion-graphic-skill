@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Motion Kit fx suite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --mk-c1: #7c3aed; --mk-c2: #06b6d4; --mk-c3: #f472b6; }
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #0b0b10; color: #eee; overflow-x: clip; }
+  section { padding: 40px; min-height: 50vh; position: relative; }
+  .spacer { height: 110vh; }
+  .card { width: 220px; height: 140px; background: #1c1c28; border-radius: 14px; display: inline-block; margin: 8px; }
+  .big { font: 800 72px/1.1 system-ui, sans-serif; }
+  #stack article { height: 260px; background: #222; border-radius: 20px; }
+  #results { white-space: pre-wrap; font: 12px monospace; }
+  @media (prefers-reduced-motion: reduce) { .x { animation: none; } }
+</style>
+</head>
+<body data-cursor="blob" data-cursor-trail="sparkle">
+
+<section id="hero">
+  <h1 id="ptext" class="big" data-text="particles">MOTION</h1>
+  <p id="glitch" class="big" data-text="glitch">GLITCH</p>
+  <p id="neon" data-text="neon">Open late</p>
+  <p id="explode" data-text="explode">Hover me</p>
+  <a id="roll" href="#x" data-text="roll">Roll link</a>
+  <p id="prox" class="big" data-text="proximity">Proximity</p>
+  <p id="flip" data-text="flip">Flip letters</p>
+  <a id="circle" href="#x" data-circle-text="Scroll * to * explore * " style="width:130px;height:130px">↓</a>
+  <span id="odo" data-count-to="12500" data-count-prefix="$" data-count-suffix="+" data-count-style="odometer" data-count-duration="500">$12,500+</span>
+  <button id="burst" data-burst>Burst</button>
+</section>
+
+<div class="spacer"></div>
+
+<section id="interact">
+  <div id="holo" class="card" data-holo data-tilt="10"><span id="depth" data-tilt-depth="40">Depth</span></div>
+  <div id="flash" class="card" data-flashlight="120">Hidden text</div>
+  <ul id="hlist" data-hover-image style="list-style:none;padding:0">
+    <li id="hitem" data-hover-image="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='30'%3E%3Crect width='40' height='30' fill='%237c3aed'/%3E%3C/svg%3E">Project one</li>
+  </ul>
+  <div id="itrail" data-image-trail="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='50'%3E%3Crect width='40' height='50' fill='%2306b6d4'/%3E%3C/svg%3E" style="height:200px;background:#111"></div>
+  <nav id="dock" data-dock style="gap:8px"><a class="card" style="width:50px;height:50px"></a><a class="card" style="width:50px;height:50px"></a><a class="card" style="width:50px;height:50px"></a></nav>
+  <div style="position:relative;height:300px;background:#151520">
+    <div id="drag" data-drag="spring" class="card" style="width:80px;height:80px">drag</div>
+  </div>
+  <div id="carousel" data-carousel="30" style="height:300px">
+    <div class="card"></div><div class="card"></div><div class="card"></div><div class="card"></div><div class="card"></div><div class="card"></div>
+  </div>
+  <div id="presets">
+    <div data-motion="blinds" data-motion-duration="300">blinds</div>
+    <div data-motion="shutter" data-motion-duration="300">shutter</div>
+    <div data-motion="diagonal" data-motion-duration="300">diagonal</div>
+    <div data-motion="split" data-motion-duration="300">split</div>
+    <div data-motion="swing" data-motion-duration="300">swing</div>
+    <div data-motion="drop" data-motion-duration="300">drop</div>
+    <div data-motion="glitch" data-motion-duration="300">glitch</div>
+    <div data-motion="rise-3d" data-motion-duration="300">rise-3d</div>
+    <div data-motion="stretch" data-motion-duration="300">stretch</div>
+    <div data-motion="zoom-blur" data-motion-duration="300">zoom-blur</div>
+  </div>
+  <h2 id="tfill" class="big" data-scrub="text-fill">Fill me up</h2>
+  <h2 id="vel" class="big" data-velocity>Velocity</h2>
+</section>
+
+<div id="stack" data-stack>
+  <article>One</article><article>Two</article><article>Three</article>
+</div>
+
+<section id="expand" data-expand>
+  <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='90'%3E%3Crect width='160' height='90' fill='%23f472b6'/%3E%3C/svg%3E">
+  <h2>Expanded</h2>
+</section>
+
+<section id="pc" data-page-color="#123456" data-page-text="#fefefe" style="min-height:100vh">Page color</section>
+
+<section id="bgs">
+  <div id="bg-fluid" data-bg="fluid" style="height:220px"></div>
+  <div id="bg-blobs" data-bg="blobs" style="height:220px"></div>
+  <div id="bg-orb" data-bg="orb" style="height:220px"></div>
+  <div id="bg-beams" data-bg="beams" style="height:220px"></div>
+  <div id="bg-tunnel" data-bg="tunnel" style="height:220px"></div>
+  <div id="bg-globe" data-bg="globe" style="height:220px"></div>
+  <div id="bg-galaxy" data-bg="galaxy" style="height:220px"></div>
+  <div id="bg-warp" data-bg="warp" style="height:220px"></div>
+  <div id="bg-flow" data-bg="flow" style="height:220px"></div>
+</section>
+<div class="spacer"></div>
+<pre id="results">running...</pre>
+
+<script>
+window.addEventListener('load', function () { setTimeout(runSuite, 150); });
+
+async function runSuite() {
+  var MK = window.MotionKit, reduced = MK && MK.reduced, results = [];
+  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  var $ = function (s) { return document.querySelector(s); };
+  function assert(c, m) { if (!c) throw new Error(m || 'assertion failed'); }
+  async function waitFor(fn, ms, msg) {
+    var t = performance.now();
+    while (performance.now() - t < (ms || 2000)) { try { if (fn()) return; } catch (e) {} await sleep(30); }
+    throw new Error('timeout: ' + (msg || fn.toString().slice(0, 120)));
+  }
+  async function scrollTo(el, block) { el.scrollIntoView({ block: block || 'center', behavior: 'instant' }); await sleep(150); }
+  async function t(name, fn, only) {
+    if (only === 'normal' && reduced) return;
+    if (only === 'reduced' && !reduced) return;
+    try { await fn(); results.push({ name: name, ok: true }); } catch (e) { results.push({ name: name, ok: false, err: e.message }); }
+  }
+  function ptr(el, type, fx, fy, target) {
+    var r = el.getBoundingClientRect();
+    (target || el).dispatchEvent(new PointerEvent(type, { bubbles: true, clientX: r.left + r.width * fx, clientY: r.top + r.height * fy, pointerType: 'mouse', pointerId: 1, button: 0 }));
+  }
+  function lit(canvas, minFrac) {
+    var c = document.createElement('canvas'); c.width = canvas.width; c.height = canvas.height;
+    var x = c.getContext('2d'); x.drawImage(canvas, 0, 0);
+    var data = x.getImageData(0, 0, c.width, c.height).data, n = 0;
+    for (var k = 3; k < data.length; k += 4) if (data[k] > 12) n++;
+    return n / (data.length / 4);
+  }
+
+  // ---------- text ----------
+  await t('particles: canvas draws the headline, real text stays for a11y', async function () {
+    window.scrollTo(0, 0); await sleep(100);
+    var el = $('#ptext'), cv = el.querySelector('.mk-ptext-canvas');
+    assert(cv, 'no particle canvas');
+    assert(el.querySelector('.mk-sr').textContent === 'MOTION', 'sr copy');
+    await waitFor(function () { return lit(cv) > 0.01; }, 3000, 'particles drawn');
+    assert(getComputedStyle(el.querySelector('.mk-wi')).color === 'rgba(0, 0, 0, 0)', 'text not transparent');
+  }, 'normal');
+  await t('particles: reduced motion keeps normal text', function () {
+    var el = $('#ptext');
+    assert(!el.querySelector('.mk-ptext-canvas'), 'canvas should not exist');
+    assert(getComputedStyle(el.querySelector('.mk-wi') || el).color !== 'rgba(0, 0, 0, 0)', 'text invisible');
+  }, 'reduced');
+  await t('glitch: burst on hover', async function () {
+    var el = $('#glitch');
+    assert(el.getAttribute('data-mk-glitch') === 'GLITCH', 'attr');
+    el.dispatchEvent(new PointerEvent('pointerenter'));
+    assert(el.classList.contains('mk-glitching'), 'no glitching class');
+  }, 'normal');
+  await t('neon: switches on', async function () { await waitFor(function () { return $('#neon').classList.contains('mk-in'); }, 2000); });
+  await t('explode: letters scatter and return', async function () {
+    var el = $('#explode');
+    el.dispatchEvent(new PointerEvent('pointerenter'));
+    var c = el.querySelector('.mk-c');
+    assert(c && c.style.translate, 'no scatter');
+    el.dispatchEvent(new PointerEvent('pointerleave'));
+    assert(!c.style.translate, 'did not reset');
+  }, 'normal');
+  await t('roll: line height var + copy shadow', function () {
+    var el = $('#roll');
+    assert(parseFloat(el.style.getPropertyValue('--mk-lh')) > 8, '--mk-lh');
+    assert(getComputedStyle(el.querySelector('.mk-c')).textShadow !== 'none', 'no shadow copy');
+  });
+  await t('proximity: letters near the cursor grow', async function () {
+    var el = $('#prox');
+    ptr(el, 'pointermove', 0.1, 0.5, document);
+    await waitFor(function () { var c = el.querySelector('.mk-c'); return parseFloat(c.style.scale) > 1.1; }, 1500, 'scale');
+  }, 'normal');
+  await t('flip: letters flip in', async function () {
+    await scrollTo($('#flip'));
+    await waitFor(function () { return $('#flip').classList.contains('mk-in') && $('#flip').querySelectorAll('.mk-c').length === 11; }, 2000);
+  });
+  await t('circle text: svg textPath and rotation', async function () {
+    var el = $('#circle');
+    assert(el.querySelector('textPath') && el.getAttribute('aria-label'), 'svg/label');
+    if (!reduced) {
+      var a = el.querySelector('svg').style.rotate; await sleep(300);
+      assert(a !== el.querySelector('svg').style.rotate, 'not rotating');
+    }
+  });
+  await t('odometer: digits roll to the final value', async function () {
+    var el = $('#odo');
+    await scrollTo(el);
+    if (reduced) { assert(el.textContent === '$12,500+', el.textContent); return; }
+    assert(el.getAttribute('aria-label') === '$12,500+', 'label');
+    await waitFor(function () { return el.classList.contains('mk-in'); }, 2000);
+    var s = el.querySelector('.mk-odo-s');
+    assert(getComputedStyle(s).translate !== 'none', 'no roll');
+  });
+
+  // ---------- cursor + pointer ----------
+  await t('blob cursor: gooey chain created, native cursor hidden', function () {
+    assert(document.querySelectorAll('.mk-cursor--blob .mk-cursor-blob').length === 6, 'blobs');
+    assert(document.documentElement.classList.contains('mk-cursor-none'), 'native cursor still visible');
+  }, 'normal');
+  await t('trail: sparkles drawn on move', async function () {
+    var cv = $('.mk-trail');
+    assert(cv, 'no trail canvas');
+    for (var i = 0; i < 12; i++) { document.dispatchEvent(new PointerEvent('pointermove', { clientX: 200 + i * 15, clientY: 200 + i * 5, bubbles: true })); await sleep(16); }
+    await sleep(60);
+    assert(lit(cv) > 0.00005, 'nothing drawn');
+  }, 'normal');
+  await scrollTo($('#holo'));
+  await t('holo: sheen follows the pointer', async function () {
+    var el = $('#holo');
+    ptr(el, 'pointermove', 0.8, 0.2);
+    await waitFor(function () { return parseFloat(el.style.getPropertyValue('--mk-ho')) > 0.3; }, 1500);
+    assert(el.querySelector('.mk-holo') && el.querySelector('.mk-holo-spark'), 'layers');
+  }, 'normal');
+  await t('tilt depth: child lifted in 3D', function () {
+    assert(/translateZ\(40px\)/.test($('#depth').style.transform), $('#depth').style.transform);
+  }, 'normal');
+  await t('flashlight: reveals on pointer move', function () {
+    var el = $('#flash');
+    ptr(el, 'pointermove', 0.5, 0.5);
+    assert(el.classList.contains('mk-flash-on') && el.querySelector('.mk-flash'), 'not on');
+  }, 'normal');
+  await t('hover image: preview appears for list items', async function () {
+    var li = $('#hitem');
+    ptr(li, 'pointermove', 0.5, 0.5, $('#hlist'));
+    ptr(li, 'pointerover', 0.5, 0.5, li);
+    await waitFor(function () { var b = $('.mk-hover-img'); return b && b.classList.contains('mk-visible') && b.querySelector('img.mk-on'); }, 1000);
+  }, 'normal');
+  await t('image trail: images spawn along the path', async function () {
+    var el = $('#itrail');
+    for (var i = 0; i < 8; i++) { ptr(el, 'pointermove', 0.05 + i * 0.12, 0.5); await sleep(10); }
+    assert(el.querySelectorAll('.mk-itrail-img').length >= 3, 'imgs=' + el.querySelectorAll('.mk-itrail-img').length);
+  }, 'normal');
+  await t('dock: item under the cursor magnifies', async function () {
+    var el = $('#dock'), first = el.children[0];
+    el.dispatchEvent(new PointerEvent('pointerenter'));
+    ptr(first, 'pointermove', 0.5, 0.5, el);
+    await waitFor(function () { return parseFloat(first.style.scale) > 1.3; }, 1500);
+  }, 'normal');
+  await t('drag: follows the pointer and springs home', async function () {
+    var el = $('#drag');
+    ptr(el, 'pointerdown', 0.5, 0.5);
+    var r = el.getBoundingClientRect();
+    el.dispatchEvent(new PointerEvent('pointermove', { clientX: r.left + r.width / 2 + 60, clientY: r.top + r.height / 2 + 30, pointerId: 1, bubbles: true }));
+    assert(/60/.test(el.style.translate), 'translate ' + el.style.translate);
+    el.dispatchEvent(new PointerEvent('pointerup', { pointerId: 1, bubbles: true }));
+    await waitFor(function () { return el.style.translate === '0px 0px' || el.style.translate === '0px' || el.style.translate === ''; }, 3000, 'spring back ' + el.style.translate);
+  });
+  await t('carousel: 3D ring spins', async function () {
+    var el = $('#carousel');
+    await scrollTo(el);
+    if (reduced) { assert(el.classList.contains('mk-carousel-static'), 'static'); return; }
+    var ring = el.querySelector('.mk-carousel-ring');
+    assert(/rotateY/.test(ring.children[1].style.transform), 'items not placed');
+    var a = ring.style.transform; await sleep(300);
+    assert(a !== ring.style.transform, 'not spinning');
+  });
+  await t('burst: sparks canvas', function () { $('#burst').click(); assert(reduced || $('.mk-confetti'), 'no canvas'); });
+
+  // ---------- presets + scroll ----------
+  await t('10 new reveal presets finish visible', async function () {
+    var els = $('#presets').children;
+    await scrollTo($('#presets'));
+    await waitFor(function () { return Array.prototype.every.call(els, function (e) { return e.classList.contains('mk-done') && parseFloat(getComputedStyle(e).opacity) > 0.99; }); }, 3000,
+      'presets: ' + Array.prototype.map.call(els, function (e) { return e.textContent + ':' + e.className; }).join(','));
+  });
+  await t('scrub text-fill sets progress', async function () {
+    await scrollTo($('#tfill'));
+    var p = parseFloat($('#tfill').style.getPropertyValue('--mk-p'));
+    assert(reduced || (p > 0 && p < 1), 'p=' + p);
+  });
+  await t('velocity: skews while scrolling fast', async function () {
+    var el = $('#vel');
+    await scrollTo(el);
+    var seen = false;
+    for (var i = 0; i < 20; i++) { window.scrollBy(0, 40); await new Promise(requestAnimationFrame); if (/skewY\((?!0\.000)/.test(el.style.transform)) seen = true; }
+    assert(seen, 'no skew: ' + el.style.transform);
+  }, 'normal');
+  await t('stack: covered card shrinks', async function () {
+    var st = $('#stack');
+    window.scrollTo(0, st.offsetTop + st.offsetHeight * 0.45);
+    await sleep(200);
+    var dpt = parseFloat(st.children[0].style.getPropertyValue('--mk-depth'));
+    assert(getComputedStyle(st.children[0]).position === 'sticky', 'not sticky');
+    assert(reduced || dpt > 0.2, 'depth=' + dpt);
+  });
+  await t('expand: media grows with scroll', async function () {
+    var s = $('#expand');
+    if (reduced) { assert(s.classList.contains('mk-expand-static'), 'static'); return; }
+    assert(s.offsetHeight > window.innerHeight * 2, 'height ' + s.offsetHeight);
+    window.scrollTo(0, s.offsetTop + (s.offsetHeight - window.innerHeight) * 0.8);
+    await sleep(200);
+    assert(parseFloat(s.style.getPropertyValue('--mk-e')) > 0.8, '--mk-e ' + s.style.getPropertyValue('--mk-e'));
+  });
+  await t('page color: body adopts section color', async function () {
+    await scrollTo($('#pc'));
+    await waitFor(function () { return document.body.style.backgroundColor === 'rgb(18, 52, 86)'; }, 1500, 'bg ' + document.body.style.backgroundColor);
+    window.scrollTo(0, 0);
+    await waitFor(function () { return !document.body.style.backgroundColor; }, 1500, 'reset');
+  });
+
+  // ---------- new backgrounds ----------
+  var bgs = ['fluid', 'blobs', 'orb', 'beams', 'tunnel', 'globe', 'galaxy', 'warp', 'flow'];
+  for (const name of bgs) {
+    await t('bg ' + name + ' renders', async function () {
+      var host = $('#bg-' + name);
+      await scrollTo(host);
+      await sleep(500);
+      var layer = host.querySelector('.mk-bg');
+      var cv = layer.querySelector('canvas');
+      assert(cv, 'no canvas (fell back?) ' + layer.className);
+      // sample inside the next frame, right after the kit drew (WebGL clears its buffer after compositing)
+      if (reduced && /^(fluid|blobs|orb|beams|tunnel)$/.test(name)) return; // one still frame; checked by screenshot instead
+      var frac = await new Promise(function (r) { requestAnimationFrame(function () { r(lit(cv)); }); });
+      assert(frac > 0.001, 'looks empty (' + frac + ')');
+    });
+  }
+
+  var failed = results.filter(function (r) { return !r.ok; });
+  window.__results = { mode: reduced ? 'reduced' : 'normal', total: results.length, failed: failed.length, results: results };
+  $('#results').textContent = results.map(function (r) { return (r.ok ? 'PASS ' : 'FAIL ') + r.name + (r.err ? '  -> ' + r.err : ''); }).join('\n');
+  document.title = failed.length ? 'FAIL ' + failed.length : 'PASS ' + results.length;
+}
+</script>
+</body>
+</html>

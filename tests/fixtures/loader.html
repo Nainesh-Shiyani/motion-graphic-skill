@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>loader fixture</title>
+<style>body { margin: 0; font: 16px system-ui; background: #111; color: #eee; } @media (prefers-reduced-motion: reduce) {}</style>
+</head>
+<body>
+<div data-loader="curtain" data-loader-min="600"><strong>BRAND</strong><span data-loader-count>0</span></div>
+<h1 id="h" data-motion="fade-up">Hello after loader</h1>
+<script>
+  window.__log = [];
+  document.addEventListener('motionkit:ready', function () {
+    window.__log.push({ ev: 'ready', t: performance.now() });
+  });
+</script>
+</body>
+</html>

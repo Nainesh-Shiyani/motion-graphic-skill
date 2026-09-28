@@ -1,0 +1,22 @@
+{
+  "name": "motion-graphics",
+  "description": "Eye-catching motion graphics for every website an AI assistant builds",
+  "owner": {
+    "name": "Nainesh Shiyani",
+    "url": "https://github.com/Nainesh-Shiyani"
+  },
+  "plugins": [
+    {
+      "name": "web-motion-graphics",
+      "source": "./",
+      "description": "Adds scroll reveals, kinetic type, WebGL fluid/orb/globe backgrounds, holographic cards, cursor trails and 90+ more motion effects to every website Claude builds.",
+      "version": "2.0.0",
+      "author": { "name": "Nainesh Shiyani" },
+      "homepage": "https://github.com/Nainesh-Shiyani/motion-graphic-skill-for-website-creation-using-claude",
+      "repository": "https://github.com/Nainesh-Shiyani/motion-graphic-skill-for-website-creation-using-claude",
+      "license": "MIT",
+      "keywords": ["animation", "motion", "website", "landing-page", "webgl", "scroll", "frontend", "design"],
+      "category": "design"
+    }
+  ]
+}

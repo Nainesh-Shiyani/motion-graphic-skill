@@ -1,0 +1,24 @@
+/* ---------- spotlight ---------- */
+:root {
+  --mk-spot: rgba(139, 92, 246, .16);
+  --mk-spot-border: rgba(167, 139, 250, .85);
+}
+.mk-spot-host { isolation: isolate; }
+.mk-spot, .mk-spot-border {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity .4s ease;
+}
+.mk-spot {
+  z-index: -1;
+  background: radial-gradient(520px circle at var(--mk-mx, 50%) var(--mk-my, 50%), var(--mk-spot), transparent 42%);
+}
+.mk-spot-border {
+  z-index: 1; padding: 1px;
+  background: radial-gradient(360px circle at var(--mk-mx, 50%) var(--mk-my, 50%), var(--mk-spot-border), transparent 45%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.mk-spot-on > .mk-spot, .mk-spot-on > .mk-spot-border,
+.mk-spot-on.mk-spot-host > .mk-spot, .mk-spot-on.mk-spot-host > .mk-spot-border { opacity: 1; }

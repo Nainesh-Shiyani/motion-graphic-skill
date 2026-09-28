@@ -1,0 +1,10 @@
+interface:
+  display_name: "Web Motion Graphics"
+  short_description: "Eye-catching motion graphics for every website you build"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  brand_color: "#7C5CFF"
+  default_prompt: "Build me a landing page with stunning motion graphics"
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,4 @@
+/* ---------- circle text badge ---------- */
+.mk-circle { position: relative; display: inline-grid; place-items: center; aspect-ratio: 1; min-width: 100px; }
+.mk-circle-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.mk-circle-svg text { fill: currentColor; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-family: inherit; }

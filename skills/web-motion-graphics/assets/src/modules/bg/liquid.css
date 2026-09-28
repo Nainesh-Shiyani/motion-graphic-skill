@@ -1,0 +1,2 @@
+/* bg: liquid */
+.mk-bg--liquid { opacity: var(--mk-liquid-opacity, .6); }

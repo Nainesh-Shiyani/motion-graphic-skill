@@ -1,0 +1,10 @@
+/* bg: gradient */
+.mk-bg--gradient { opacity: var(--mk-gradient-opacity, 1); }
+.mk-gradient-a, .mk-gradient-b {
+  position: absolute; left: 50%; top: 50%; width: 125vmax; height: 125vmax;
+  margin: -62.5vmax 0 0 -62.5vmax; filter: blur(60px); will-change: transform;
+}
+.mk-gradient-a { animation: mk-spin calc(28s / var(--mk-gradient-speed, 1)) linear infinite; opacity: .85; }
+.mk-gradient-b { animation: mk-spin calc(40s / var(--mk-gradient-speed, 1)) linear infinite reverse; opacity: .7; mix-blend-mode: soft-light; }
+@keyframes mk-spin { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .mk-gradient-a, .mk-gradient-b { animation: none; } }

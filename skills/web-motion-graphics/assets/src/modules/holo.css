@@ -1,0 +1,40 @@
+/* ---------- holo foil + flashlight ---------- */
+@property --mk-fl-r { syntax: "<length>"; inherits: true; initial-value: 0px; }
+.mk-holo-host { isolation: isolate; overflow: hidden; }
+.mk-holo, .mk-holo-spark {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3;
+  opacity: calc(var(--mk-ho, 0) * var(--mk-holo-opacity, .75));
+}
+.mk-holo {
+  mix-blend-mode: color-dodge;
+  background:
+    repeating-linear-gradient(115deg,
+      hsl(2 100% 73% / .9) 0%, hsl(53 100% 69% / .9) 5%, hsl(93 100% 69% / .9) 10%,
+      hsl(176 100% 76% / .9) 15%, hsl(228 100% 74% / .9) 20%, hsl(283 100% 73% / .9) 25%, hsl(2 100% 73% / .9) 30%),
+    radial-gradient(farthest-corner circle at var(--mk-hx, 50%) var(--mk-hy, 50%), rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, .15) 28%, rgba(0, 0, 0, .55) 90%);
+  background-size: 300% 300%, 100% 100%;
+  background-position: calc(var(--mk-hx, 50%) * 1.4) calc(var(--mk-hy, 50%) * 1.4), center;
+  background-blend-mode: overlay;
+  filter: brightness(.75) contrast(1.4) saturate(1.3);
+}
+.mk-holo-spark {
+  mix-blend-mode: color-dodge;
+  background-image:
+    radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 2px), radial-gradient(circle at 70% 65%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 45% 80%, #fff 0 1.5px, transparent 2.5px), radial-gradient(circle at 85% 20%, #fff 0 1px, transparent 2px);
+  background-size: 23px 29px, 37px 31px, 41px 47px, 19px 23px;
+  background-position: calc(var(--mk-hx, 50%) * -.3) calc(var(--mk-hy, 50%) * -.3), calc(var(--mk-hx, 50%) * .2) 0, 0 calc(var(--mk-hy, 50%) * .25), center;
+  opacity: calc(var(--mk-ho, 0) * var(--mk-hd, 0) * .9);
+}
+
+.mk-flash-host { isolation: isolate; }
+.mk-flash {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit;
+  background: var(--mk-flash-cover, rgba(4, 4, 9, .94));
+  --mk-fl-r: 0px;
+  -webkit-mask-image: radial-gradient(circle var(--mk-fl-r) at var(--mk-fx, 50%) var(--mk-fy, 50%), transparent 0%, transparent 55%, #000 100%);
+  mask-image: radial-gradient(circle var(--mk-fl-r) at var(--mk-fx, 50%) var(--mk-fy, 50%), transparent 0%, transparent 55%, #000 100%);
+  transition: --mk-fl-r .5s var(--mk-ease);
+}
+.mk-flash-on .mk-flash { --mk-fl-r: var(--mk-fl-size, 220px); }
+[data-flashlight-cover].mk-flash { background: none; }

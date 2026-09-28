@@ -1,0 +1,8 @@
+/* ---------- text add-on: typewriter caret ---------- */
+.mk-caret {
+  display: inline-block; width: .07em; height: 1em; margin-left: .06em;
+  vertical-align: -.12em; background: currentColor;
+  animation: mk-blink 1s steps(1) infinite;
+}
+@keyframes mk-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .mk-caret { animation: none; } }
